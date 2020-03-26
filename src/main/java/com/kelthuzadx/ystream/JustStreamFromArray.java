@@ -1,15 +1,15 @@
 package com.kelthuzadx.ystream;
 
-public class JustStreamFromArray extends JustStream {
-    private int[] items;
+public class JustStreamFromArray<T> extends JustStream<T> {
+    private T[] items;
 
-    public JustStreamFromArray(int... items){
+    public JustStreamFromArray(T... items) {
         this.items = items;
     }
 
     @Override
-    public void subscribe(Observer observer) {
-        for(int i:items){
+    protected void subscribeImpl(Observer<T> observer) {
+        for (T i : items) {
             observer.onNext(i);
         }
     }

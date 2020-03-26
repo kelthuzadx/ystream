@@ -3,30 +3,30 @@ package com.kelthuzadx.ystream;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-abstract class JustStream{
-    public void subscribe(Consumer<Integer> func){
-        subscribe(new JustStreamObserver(func));
+abstract class JustStream<T> {
+    public static <K> JustStream<K> just(K... item) {
+        return new JustStreamFromArray<K>(item);
     }
 
-    public abstract void subscribe(Observer observer);
-
-    public JustStreamOperation map(Function<Integer,Integer> f){
-        return new JustStreamMap(this,f);
+    public void subscribe(Consumer<T> func) {
+        subscribeImpl(new SubscribeObserver<T>(func));
     }
 
-    public static JustStream just(int... item){
-        return new JustStreamFromArray(item);
+    protected abstract void subscribeImpl(Observer<T> observer);
+
+    public JustStreamOperation<T> map(Function<T, T> f) {
+        return new JustStreamMap<T>(this, f);
     }
 
-    static class JustStreamObserver implements Observer{
-        private Consumer<Integer> func;
+    static class SubscribeObserver<T> implements Observer<T> {
+        private Consumer<T> func;
 
-        public JustStreamObserver(Consumer<Integer> func){
+        public SubscribeObserver(Consumer<T> func) {
             this.func = func;
         }
 
         @Override
-        public void onNext(int item) {
+        public void onNext(T item) {
             func.accept(item);
         }
     }
