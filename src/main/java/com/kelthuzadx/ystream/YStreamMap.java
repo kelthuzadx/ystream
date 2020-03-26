@@ -5,14 +5,14 @@ import java.util.function.Function;
 public class YStreamMap<T> extends YStreamOperation<T> {
     private Function<T, T> func;
 
-    public YStreamMap(YStream<T> source, Function<T, T> func) {
-        super(source);
+    public YStreamMap(YStream<T> upstream, Function<T, T> func) {
+        super(upstream);
         this.func = func;
     }
 
     @Override
     protected void subscribeImpl(Observer<T> observer) {
-        source.subscribeImpl(new MapObserver<T>(observer, func));
+        upstream.subscribeImpl(new MapObserver<T>(observer, func));
     }
 
     public static class MapObserver<T> implements Observer<T> {
