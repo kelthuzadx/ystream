@@ -1,9 +1,10 @@
 package com.kelthuzadx.ystream;
 
-public class JustStreamFromArray<T> extends JustStream<T> {
+public class YStreamFromArray<T> extends YStream<T> {
     private T[] items;
 
-    public JustStreamFromArray(T... items) {
+    @SafeVarargs
+    public YStreamFromArray(T... items) {
         this.items = items;
     }
 

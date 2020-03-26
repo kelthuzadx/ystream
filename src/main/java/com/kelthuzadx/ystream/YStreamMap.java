@@ -2,10 +2,10 @@ package com.kelthuzadx.ystream;
 
 import java.util.function.Function;
 
-public class JustStreamMap<T> extends JustStreamOperation<T> {
+public class YStreamMap<T> extends YStreamOperation<T> {
     private Function<T, T> func;
 
-    public JustStreamMap(JustStream<T> source, Function<T, T> func) {
+    public YStreamMap(YStream<T> source, Function<T, T> func) {
         super(source);
         this.func = func;
     }
