@@ -11,8 +11,8 @@ public class YStreamMap<T> extends YStreamOperation<T> {
     }
 
     @Override
-    protected void subscribeImpl(Observer<T> observer) {
-        upstream.subscribeImpl(new MapObserver<T>(observer, func));
+    protected void subscribeImpl(Observer<T> downstream) {
+        upstream.subscribeImpl(new MapObserver<T>(downstream, func));
     }
 
     public static class MapObserver<T> implements Observer<T> {

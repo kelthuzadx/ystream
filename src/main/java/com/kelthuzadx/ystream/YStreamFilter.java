@@ -11,8 +11,8 @@ public class YStreamFilter<T> extends YStreamOperation<T> {
     }
 
     @Override
-    protected void subscribeImpl(Observer<T> observer) {
-        upstream.subscribeImpl(new FilterObserver<>(observer, predicate));
+    protected void subscribeImpl(Observer<T> downstream) {
+        upstream.subscribeImpl(new FilterObserver<>(downstream, predicate));
     }
 
     static class FilterObserver<T> implements Observer<T> {
